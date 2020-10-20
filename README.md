@@ -13,4 +13,3 @@ Kinetic simulation and prediction source code for m6A excited states paper
 
 ### 3. TAR_ES1_simulation.ipynb
 #### Kinetic prediction for TARm6A ES1
-# m6A_hybridization_kinetics
