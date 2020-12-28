@@ -3,7 +3,7 @@
 Kinetic simulation and prediction source code for m6A excited states paper
 
 ### This is all the Kinetic simulation and prediction source code files for the m6A Excited states paper
-### Ref: Liu et al, (2020) "m6A delays base-pairing through syn-anti isomerization of the methylamino group" BioRxiv
+### Ref: Liu et al, (2020) "A quantitative model predicts how m6A reshapes the kinetic landscape of nucleic acid hybridization and conformational transitions" BioRxiv
 
 ### 1. Vant_hoff_extrapolation.ipynb
 #### Tempareture dependent R1p/CEST mesurement of methyl isomerization in m6AMP, ssRNA and dsRNA
