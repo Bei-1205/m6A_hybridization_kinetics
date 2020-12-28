@@ -1,4 +1,4 @@
-# m6A_kinetics_final
+# m6A_hybridization_kinetics
  
 ### CEST simulation, kinetic simulation and prediction source code for m6A excited states paper
 
