@@ -13,6 +13,8 @@
 ####  4-state simulation kinetics simultaion and m6A apparent kon, koff prediction, genome wide m6A DNA kon prediction
 #### c. Genome_wide_DNA_kon_prediction.ipynb
 ####  generate 12-mer DNA sequences containing m6A from mouse genome. predict dG and kon for the unmethylated DNA sequences
+#### d. TAR_ES_Simulation_final.ipynb
+####  Kinetic simulation for methylated TAR conformational transition
 ###
 ### 2. CEST_4state_simulation (python 3.6)
 #### a. 4state_CEST_simulations.ipynb
