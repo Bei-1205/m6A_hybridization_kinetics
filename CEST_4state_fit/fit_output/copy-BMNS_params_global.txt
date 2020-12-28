@@ -1,0 +1,142 @@
+
+##################################################################################
+# Run the BMNS fitting program:
+# > python BMNS.py -fit [BM Parameter Input File] [R1rho Data Directory] (Optional Output directory)
+##################################################################################
+# Define fitting setup.
+# FitType: can be 'global' or 'local' or 'brute'
+#          This is for global or local optimizations, not shared parameter fits.
+#          'Brute' designates brute-force fixed calculations of the range of parameter
+#                   space designated by lower/upper bounds on parameters.
+#          - 'brutep' will generate plots at each increment point.
+#             WARNING: This can take a LONG time.
+#          'Bruteint' brute-forces parameter space by fitting intensities instead of
+#                     R1p values
+#
+#          'Local' uses Levenberg-Marquardt semi-gradient descent/Gauss-Newton algorithm
+#          - 'localint' fits intensities directly rather than R1p
+#          'Global' uses the "Adaptive Memory Programming for Global Optimizations"
+#                   algorithm, with the local 'L-BFGS-B' function, and polishes the
+#                   global optimum with L-M.
+# FitEqn: fit equation, "BM" for Bloch-McConnell or "Lag" for Laguerre 2-/3-state
+# NumFits: is number of fit minima to find (ie. loop over fitting algorithm)
+# RandomFitStart : can be 'Yes' or 'No'
+#                  if 'Yes', randomly selects initial guess from parameter bounds
+##################################################################################
+##################################################################################
+# Define fit parameter data, data names, base freqs,
+#  initial parameter guesses, and paramter lower and upper bounds. 
+#
+# Add '+' to read in an additional set of parameters with given 'Name XYZ'
+#   The 'Name' must match a .csv data file in given directory of the same name.
+#
+# Rows for parameters are as follows:
+#  [Par name] [initial value] [lower bounds] [upper bounds] ([optional brute force number])
+#
+# If both lower and upper bounds are not given, they will be set to large values.
+# '!' designates a fixed parameter that will not change throughout the fit.
+# '*' designates a shared parameter that will be fitted for all data sets
+#     also containing the 'x' flag, in a shared manner.
+# '@' designates linear brute-force over parameter range of low to upper bounds
+# '$' designates log brute-force over parameter range of low to upper bounds
+#
+# If R1b/c or R2b/c are fixed to 0, they will be shared with R1 / R2
+#  e.g. "R1b! = 0.0" will be interpreted as "R1b = R1"
+# 
+# lf = Larmor frequency (MHz) of the nucleus of interest
+#      15N:   60.76302 (600) or  70.960783 (700)
+#      13C: 150.784627 (600) or 176.090575 (700)
+#
+# (optional) rnddel = Fraction of data to be randomly deleted before fit
+#                     e.g 'rnddel 0.1' would randomly delete 10pct of data
+#
+# Temp [Celsius or Kelvin] : Define temperature to calculate free energies
+#
+# AlignMag [Auto/Avg/GS]
+#          Auto : calculates kex/dw and aligns mag depending on slow (gs) vs. fast (avg)
+#          Avg : Aligns magnetization/projects along average effective field of GS/ESs
+#          GS : Aligns magnetization along ground-state
+#
+# x-axis Lower Upper (Hz): Sets lower and upper x-axis limits for both plots
+#   if not given, will automatically set them
+#
+# y-axis Lower Upper : Sets lower and upper y-axis limits for both plots
+#   if not given, will automatically set them
+#
+# Trelax increment Tmax (seconds) : sets the increment delay and maximum relaxation
+#  delay to simulate R1rho at.
+#  Use caution with this flag, recommended that is remains commented out.
+#  Array of delays is given as a linear spacing from 0 - Tmax in Tmax/Tinc number of points
+#  If not defined, the program will calculate the best Tmax from the experimental
+#   R1rho data.
+##################################################################################
+# AlignMag - for CEST, controls the states whose magnetizations are summed up to calculate the intensity
+# GS -> only GS magnetization is used (default)
+# AVG -> sum of magnetization of all states is used
+# ls - determine observed peak position using lineshape simulation (Y=yes, N=no). 
+# default is no, as it is time consuming and generally, observed peak pos = GS
+# resn - resolution for lineshape simulation to determine observed peak position. relevant only when ls=Y
+# eqbn - allow equilibration (Y=yes, N=no)
+# fitvar - fitting variable (I=intensity, V=volume)
+# err_mode - mode of error estimation (STD = standard, MC=monte-carlo)
+# mc_iter - number of monte carlo iterations. relevant only when err_mode=MC
+# If only R1 and R2 are specified, these values are used for all states, assuming their relaxation 
+# constants are equal 
+# To include an extra relaxation variable in fitting, say R1c, just specify its bounds
+# below the R2, in the list below 
+# All combinations of unequal relaxation constants are handled
+# inhomo - set to 0.0 for homogeneous spin-lock field
+
++
+Name dsGBCm6A_mA6C2_55C.csv
+lf 150.784627
+AlignMag GS
+resn 1.0 
+equil N
+fitvar I
+ls N
+err_mode STD
+mc_iter 10
+inhomo 0.045
+J 0.0
+pB* 0.0121 0.011 0.013
+pC* 0.051 0.036 0.066
+pD* 0.004 0.002 0.006
+dwB 2.5 2.4 2.6
+dwC 1.6 1.5 1.7
+dwD 1. 0.7 1.2
+kexAB* 533.6 510 560
+kexCD* 8132 6400 9900
+kexBC* 155 115 195
+kexAD* 579.7 569 590
+R1 4.7 4.69 4.71
+R2 10.63 10.58 10.68
+R2c 36.5 27.5 45.5
+R2d 36.5 27.5 45.5
+
++
+Name dsGBCm6A_mA6C8_55C.csv
+lf 150.784627
+AlignMag GS
+resn 1.0 
+equil N
+fitvar I
+ls N
+err_mode STD
+mc_iter 10
+inhomo 0.045
+J 0.0
+pB* 0.0121 0.011 0.013
+pC* 0.051 0.036 0.066
+pD* 0.004 0.002 0.006
+dwB! 0.0 2.4 2.7
+dwC 2 2.0 2.2
+dwD! 0.0 0.9 1.2
+kexAB* 533.6 510 560
+kexCD* 8132 6400 9900
+kexBC* 155 115 195
+kexAD* 579.7 569 590
+R1 4.48 4.47 4.49
+R2 12.76 12.71 12.81
+R2c 135.12 132 138
+R2d 135.12 132 138
