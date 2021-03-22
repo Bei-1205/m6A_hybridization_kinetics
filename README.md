@@ -29,6 +29,7 @@
 ### 3. CEST_4state_fit (python 2.7)
 #### a. 4state_fit_v3.py
 ####  python script used for 4state fitting, the command is "python 4state_fit_v3.py BMNS_params_global.txt fit_output"
+#### Scipy version 1.2.1 may be required
 #### b. BMNS_params_global.txt
 ####  text file containing the fitting inputs
 #### c. dsGBCm6A_mA6C2_55C.csv and dsGBCm6A_mA6C8_55C.csv
