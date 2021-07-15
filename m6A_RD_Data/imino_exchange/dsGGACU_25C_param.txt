@@ -1,0 +1,3 @@
+kex value: 19.5+/-0.4
+tau_ex value: 0.0513+/-0.0012
+R1n value: 19.7+/-0.5
