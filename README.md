@@ -36,3 +36,9 @@
 ####  experimental data from CEST measurements to fit
 #### d. fit_output
 ####  out put file of the fitting program
+###
+### 4. m6A_RD_Data
+#### This folder contains all the NMR data in the paper
+#### "CEST" CEST raw data
+#### "R1rho" R1rho raw data
+#### "imino_exchange" H/D exchange data
